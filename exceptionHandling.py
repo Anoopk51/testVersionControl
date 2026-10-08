@@ -1,21 +1,20 @@
 import logging
-
-logging.basicConfig(
-    level=logging.INFO
-    )
+from typing import Optional
 
 logger = logging.getLogger("__name__")
 
-def divide(a,b):
+def divide(a:float,b:float) -> Optional[float]:
     logger.info("start logger module")
     try:
-        result = a/b
-        logger.info("divide successfull.")
-        return result
-    
-    except ZeroDivisionError as z:
-        logger.info("can't devide by zero because ")
-        print(z)
+        return a / b
+    except ZeroDivisionError:
+        logger.warning("Cannot divide by zero.")
+        return None
 
+def main() -> None:
+    logging.basicConfig(level=logging.INFO)
+    result = divide(4,0)
+    logger.info("Result %s" ,result)
 
-divide(4,0)
+if __name__ == "__main__":
+    main()
